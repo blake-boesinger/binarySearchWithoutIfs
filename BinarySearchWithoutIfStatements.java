@@ -49,7 +49,13 @@ public class BinarySearchWithoutIfStatements {
     };
 
     @Test
-    public void testMinusOneIsReturnedWhenValueIsNotInTheList() {
+       public void testMinusOneIsReturnedWhenValueIsNotInTheListButWouldBeAfter() {
+           Integer index = binarySearch(list, 0, list.size() - 1, 12);
+           assertEquals(-1, index.intValue());
+       }
+
+    @Test
+    public void testMinusOneIsReturnedWhenValueIsNotInTheListButWouldBeBefore() {
         Integer index = binarySearch(list, 0, list.size() - 1, 5);
         assertEquals(-1, index.intValue());
     }
