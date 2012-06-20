@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -10,9 +11,7 @@ public class BinarySearchWithoutIfStatements {
 
 
     public interface Function<T> {
-
         T apply();
-
     }
 
 
@@ -31,7 +30,6 @@ public class BinarySearchWithoutIfStatements {
                     });
             put(Boolean.FALSE,
                     new MyBoolean() {
-
                         public int trueFunctionFalseFunction(final Function<Integer> t, final Function<Integer> f) {
                             return f.apply();
                         }
@@ -40,28 +38,32 @@ public class BinarySearchWithoutIfStatements {
     };
 
 
+    final static List<Integer> list = new ArrayList<Integer>() {
+        {
+            add(7);
+            add(8);
+            add(9);
+            add(10);
+            add(11);
+        }
+    };
+
     @Test
-    public void test() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        list.add(7);
-        list.add(8);
-        list.add(9);
-        list.add(10);
-        list.add(11);
+    public void testMinusOneIsReturnedWhenValueIsNotInTheList() {
+        Integer index = binarySearch(list, 0, list.size() - 1, 5);
+        assertEquals(-1, index.intValue());
+    }
 
-        Integer index1 = binarySearch(list, 0, list.size() - 1, 5);
+    @Test
+    public void testThatWeCanFindTheLastElement() {
+        Integer index = binarySearch(list, 0, list.size() - 1, 11);
+        assertEquals(4, index.intValue());
+    }
 
-        assertEquals(-1, index1.intValue());
-
-        Integer index2 = binarySearch(list, 0, list.size() - 1, 7);
-
-        assertEquals(0, index2.intValue());
-
-        Integer index3 = binarySearch(list, 0, list.size() - 1, 11);
-
-        assertEquals(4, index3.intValue());
-
-
+    @Test
+    public void testThatWeCanFindTheFirstElement() {
+        Integer index = binarySearch(list, 0, list.size() - 1, 7);
+        assertEquals(0, index.intValue());
     }
 
     static int eval(boolean b, final Function<Integer> t, final Function<Integer> f) {
@@ -69,9 +71,7 @@ public class BinarySearchWithoutIfStatements {
     }
 
 
-    static public int binarySearch(final ArrayList<Integer> sorted, final int low, final int high, final int key) {
-
-
+    static public int binarySearch(final List<Integer> sorted, final int low, final int high, final int key) {
         return eval(high < low, new Function<Integer>() {
                     public Integer apply() {
                         return -1;
